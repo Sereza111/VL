@@ -1,0 +1,186 @@
+/* TasksScreen.css */
+.tasks-screen {
+  padding: 15px;
+  color: var(--text-primary);
+}
+
+.screen-title {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #fff;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+}
+
+.tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.task-item {
+  background: rgba(30, 30, 45, 0.5);
+  border-radius: 15px;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.task-item:hover {
+  transform: translateY(-3px);
+  border-color: var(--primary);
+}
+
+/* Внутренний контур в едином стиле */
+.task-item::after,
+.empty-tasks::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 15px;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.task-info {
+  flex: 1;
+  margin-right: 15px;
+}
+
+.task-info h3 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.task-description {
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.progress-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+  margin-right: 10px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  border-radius: 5px;
+}
+
+.progress-text {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  min-width: 40px;
+  text-align: right;
+}
+
+.task-reward {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.assign-button,
+.claim-button {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 100px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(106, 90, 249, 0.3);
+}
+
+.assign-button:hover,
+.claim-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(106, 90, 249, 0.4);
+}
+
+.claim-button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.empty-tasks {
+  text-align: center;
+  padding: 30px;
+  background: rgba(30, 30, 45, 0.3);
+  border-radius: 15px;
+  color: var(--text-secondary);
+}
+
+/* Стили для индикатора загрузки */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  width: 100%;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(106, 90, 249, 0.3);
+  border-top: 4px solid var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+.loading-text {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 600px) {
+  .task-item {
+    flex-direction: column;
+  }
+  
+  .task-info {
+    margin-right: 0;
+    margin-bottom: 15px;
+    width: 100%;
+  }
+  
+  .task-reward {
+    width: 100%;
+  }
+  
+  .assign-button,
+  .claim-button {
+    width: 100%;
+  }
+} 

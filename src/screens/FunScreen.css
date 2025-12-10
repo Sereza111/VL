@@ -1,0 +1,498 @@
+/* Mystical Wheel of Fortune - Tarot Style */
+.fun-screen.mystical-theme {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 0;
+  background: #000;
+  overflow: hidden;
+}
+
+.mystical-title {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.mystical-title::after {
+  content: "";
+  display: block;
+  width: 200px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #FFD700, transparent);
+  margin: 10px auto 0;
+}
+
+.tarot-wheel-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 1/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tarot-wheel {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(30,30,60,0.8), rgba(0,0,0,1));
+  box-shadow: 
+    0 0 50px rgba(255,215,0,0.2),
+    inset 0 0 100px rgba(255,215,0,0.1);
+  border: 8px solid rgba(255,215,0,0.2);
+  transition: transform 8s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+}
+
+/* Сектора колеса с символами Таро */
+.wheel-sector {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(50% 50%, 0% 0%, 100% 0%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: bottom center;
+  opacity: 0.95;
+  transition: opacity 0.3s ease;
+  border: 1px solid rgba(255, 215, 0, 0.15);
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* Цвета секторов соответствуют значениям Таро */
+.wheel-sector:nth-child(1) { background: rgba(30, 30, 60, 0.8); } /* The Magician */
+.wheel-sector:nth-child(2) { background: rgba(60, 30, 60, 0.8); } /* The High Priestess */
+.wheel-sector:nth-child(3) { background: rgba(90, 30, 60, 0.8); } /* The Empress */
+.wheel-sector:nth-child(4) { background: rgba(120, 30, 60, 0.8); } /* The Emperor */
+.wheel-sector:nth-child(5) { background: rgba(150, 30, 60, 0.8); } /* The Hierophant */
+.wheel-sector:nth-child(6) { background: rgba(180, 30, 60, 0.8); } /* The Lovers */
+.wheel-sector:nth-child(7) { background: rgba(210, 30, 60, 0.8); } /* The Chariot */
+.wheel-sector:nth-child(8) { background: rgba(240, 30, 60, 0.8); } /* Strength */
+
+.wheel-sector:hover {
+  opacity: 1;
+  box-shadow: inset 0 0 30px rgba(255, 215, 0, 0.3);
+}
+
+.wheel-sector-symbol {
+  position: absolute;
+  top: 25%;
+  font-size: 2.5rem;
+  color: #FFD700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+  transform: translateY(-50%) rotate(180deg);
+  font-weight: bold;
+}
+
+.wheel-sector-text {
+  position: absolute;
+  bottom: 15%;
+  font-size: 1.1rem;
+  color: #f8f8f8;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+  transform: rotate(180deg);
+  width: 80%;
+  text-align: center;
+  font-family: 'Cinzel Decorative', serif;
+}
+
+/* Спицы колеса с символами */
+.center-spokes {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 92%;
+  height: 92%;
+  z-index: 15;
+}
+
+.center-spoke {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.7), transparent);
+  transform-origin: center;
+  z-index: 15;
+}
+
+.spoke-1 { transform: translate(-50%, -50%) rotate(0deg); }
+.spoke-2 { transform: translate(-50%, -50%) rotate(45deg); }
+.spoke-3 { transform: translate(-50%, -50%) rotate(90deg); }
+.spoke-4 { transform: translate(-50%, -50%) rotate(135deg); }
+.spoke-5 { transform: translate(-50%, -50%) rotate(180deg); }
+.spoke-6 { transform: translate(-50%, -50%) rotate(225deg); }
+.spoke-7 { transform: translate(-50%, -50%) rotate(270deg); }
+.spoke-8 { transform: translate(-50%, -50%) rotate(315deg); }
+
+/* Центр колеса с символом Таро */
+.wheel-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70px;
+  height: 70px;
+  background: #000;
+  border-radius: 50%;
+  border: 5px solid rgba(255, 215, 0, 0.5);
+  box-shadow: 
+    0 0 30px rgba(255, 215, 0, 0.3),
+    inset 0 0 20px rgba(255, 215, 0, 0.2);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #FFD700;
+  font-weight: bold;
+}
+
+/* Маркер выигрыша в виде меча */
+.wheel-marker {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 70px;
+  z-index: 20;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 70'%3E%3Cpath d='M20 0 L25 15 L20 20 L15 15 Z M20 20 L20 70 L15 65 L25 65 Z' fill='%23FFD700' stroke='%23000' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.7));
+}
+
+/* Ось колеса в виде кадуцея */
+.caduceus-staff {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 15px;
+  height: 250px;
+  background: linear-gradient(to bottom, #8B4513, #A0522D, #8B4513);
+  z-index: 5;
+  box-shadow: 0 0 20px rgba(139, 69, 19, 0.5);
+}
+
+.caduceus-staff::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 25px;
+  height: 25px;
+  background: #FFD700;
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+}
+
+.caduceus-staff::after {
+  content: "";
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 20px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 20'%3E%3Cpath d='M0,10 Q25,20 50,10 Q75,0 100,10' fill='none' stroke='%23A0522D' stroke-width='3'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* Змеи вокруг оси */
+.snake-decoration {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 200px;
+  z-index: 6;
+}
+
+.snake-left, .snake-right {
+  position: absolute;
+  width: 80px;
+  height: 150px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 150'%3E%3Cpath d='M40,0 Q60,30 40,60 Q20,90 40,120 Q60,150 40,150' fill='none' stroke='%23FFD700' stroke-width='3'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.snake-left {
+  left: -60px;
+  transform: rotate(10deg);
+}
+
+.snake-right {
+  right: -60px;
+  transform: rotate(-10deg) scaleX(-1);
+}
+
+/* Фигуры вокруг колеса */
+.wheel-figures {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 25;
+}
+
+.figure {
+  position: absolute;
+  width: 80px;
+  height: 120px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.9;
+}
+
+.figure-sphinx {
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 150px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 150'%3E%3Cpath d='M50,0 L60,30 L70,40 L60,50 L40,50 L30,40 L40,30 Z M30,40 L30,80 L40,90 L60,90 L70,80 L70,40' fill='none' stroke='%23FFD700' stroke-width='2'/%3E%3Cpath d='M40,30 L60,30 L50,50' fill='none' stroke='%23FFD700' stroke-width='1.5'/%3E%3C/svg%3E");
+}
+
+.figure-rising {
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 120'%3E%3Cpath d='M40,0 L50,30 L60,40 L50,50 L30,50 L20,40 L30,30 Z M30,40 L30,80 L40,90 L50,80 L50,40' fill='none' stroke='%23FFD700' stroke-width='2'/%3E%3C/svg%3E");
+}
+
+.figure-falling {
+  left: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 120'%3E%3Cpath d='M40,120 L50,90 L60,80 L50,70 L30,70 L20,80 L30,90 Z M30,80 L30,40 L40,30 L50,40 L50,80' fill='none' stroke='%23FFD700' stroke-width='2'/%3E%3C/svg%3E");
+}
+
+.figure-king {
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 150px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 150'%3E%3Cpath d='M50,150 L60,120 L70,110 L60,100 L40,100 L30,110 L40,120 Z M40,120 L40,80 L50,70 L60,80 L60,120' fill='none' stroke='%23FFD700' stroke-width='2'/%3E%3Cpath d='M50,70 L50,30 L60,20 L40,20 Z' fill='none' stroke='%23FFD700' stroke-width='1.5'/%3E%3C/svg%3E");
+}
+
+/* Энергетические эффекты */
+.tarot-energy {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(255, 215, 0, 0.1), transparent 70%);
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.tarot-energy.active {
+  opacity: 0.5;
+}
+
+.tarot-symbols {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.tarot-symbol {
+  position: absolute;
+  font-size: 1.5rem;
+  color: rgba(255, 215, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Кнопки управления */
+.wheel-controls {
+  position: absolute;
+  bottom: 50px; /* Поднял кнопки выше */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  z-index: 30;
+}
+
+.tarot-button {
+  padding: 10px 30px; /* Увеличил padding */
+  background: linear-gradient(135deg, #8B4513, #A0522D);
+  color: #FFD700;
+  border: 2px solid rgba(255,215,0,0.5);
+  border-radius: 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  min-width: 150px; /* Минимальная ширина */
+  text-align: center;
+}
+
+.tarot-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255,215,0,0.3);
+}
+
+.tarot-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Результат */
+.tarot-result {
+  position: absolute;
+  bottom: 120px; /* Поднял результат выше */
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px 30px;
+  background: rgba(0,0,0,0.8);
+  border: 2px solid #FFD700;
+  color: #FFD700;
+  border-radius: 20px;
+  font-size: 1.2rem;
+  text-align: center;
+  opacity: 0;
+  transition: all 0.5s ease;
+  z-index: 40;
+  min-width: 200px;
+}
+
+.tarot-result.show {
+  opacity: 1;
+}
+
+.tarot-result.jackpot {
+  background: rgba(139, 69, 19, 0.8);
+  color: #FFD700;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+  50% { box-shadow: 0 0 30px rgba(255, 215, 0, 0.8); }
+  100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+}
+
+/* Уровни призов */
+.prize-levels {
+  position: absolute;
+  top: -100px; /* Увеличил отступ сверху */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 15px;
+  z-index: 10;
+  width: 100%;
+  max-width: 500px; /* Ограничил максимальную ширину */
+  justify-content: center;
+}
+
+.prize-level {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(0,0,0,0.7);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 10px;
+  padding: 10px;
+  width: 70px;
+  transition: transform 0.3s ease;
+}
+
+.prize-level:hover {
+  transform: scale(1.1);
+  background: rgba(30,30,60,0.9);
+}
+
+.prize-icon {
+  font-size: 1.5rem;
+  color: #FFD700;
+  margin-bottom: 5px;
+}
+
+.prize-name {
+  font-size: 0.7rem;
+  color: #f8f8f8;
+  text-align: center;
+  margin-bottom: 3px;
+}
+
+.prize-value {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #FFD700;
+}
+
+/* Адаптивность */
+@media (max-width: 480px) {
+  .tarot-wheel-container {
+    max-width: 90vw;
+  }
+  
+  .prize-levels {
+    top: -80px;
+    gap: 10px;
+  }
+  
+  .prize-level {
+    width: 60px;
+    padding: 5px;
+  }
+  
+  .prize-icon {
+    font-size: 1.2rem;
+  }
+  
+  .prize-name {
+    font-size: 0.6rem;
+  }
+  
+  .prize-value {
+    font-size: 0.8rem;
+  }
+  
+  .wheel-controls {
+    bottom: 30px;
+    gap: 10px;
+  }
+  
+  .tarot-button {
+    padding: 8px 20px;
+    font-size: 0.9rem;
+    min-width: 120px;
+  }
+  
+  .tarot-result {
+    bottom: 100px;
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+}

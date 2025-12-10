@@ -1,0 +1,78 @@
+/* Стили для компонента OccultPatterns */
+.occult-patterns-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Анимации для оккультных узоров */
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.2; transform: scale(0.95); }
+  50% { opacity: 0.5; transform: scale(1.05); }
+}
+
+.occult-pattern {
+  position: absolute;
+  opacity: 0.3;
+  transition: all 0.5s ease;
+}
+
+.occult-pattern.pentagram {
+  animation: rotate 60s infinite linear, pulse 15s infinite ease-in-out;
+}
+
+.occult-pattern.moon {
+  animation: pulse 20s infinite ease-in-out;
+}
+
+.occult-pattern.rune {
+  animation: pulse 25s infinite ease-in-out;
+}
+
+.occult-pattern.circle {
+  animation: rotate 80s infinite linear reverse, pulse 30s infinite ease-in-out;
+}
+
+/* Стили для разных типов узоров */
+.pentagram {
+  width: 50px;
+  height: 50px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.moon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.rune {
+  width: 30px;
+  height: 60px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid #E8D3A9;
+  box-sizing: border-box;
+} 
