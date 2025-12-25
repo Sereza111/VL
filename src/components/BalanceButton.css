@@ -1,0 +1,513 @@
+.mystic-button-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 180px;
+}
+
+.large-container {
+  width: 280px;
+  height: 320px;
+}
+
+.mystic-button {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(26, 60, 52, 0.9) 0%, rgba(42, 23, 69, 0.9) 100%);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: all var(--transition-normal);
+  box-shadow: 
+    0 0 15px rgba(255, 255, 255, 0.18),
+    inset 0 0 20px rgba(0, 0, 0, 0.3);
+  outline: none;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+/* Glassmorphism overlay and portal layer */
+.portal-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: saturate(1.1) brightness(1.05);
+}
+.mystic-button {
+  backdrop-filter: blur(10px) saturate(1.2);
+}
+
+/* Прогресс-дуга вокруг кнопки (уровень зоны) */
+.progress-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background:
+    conic-gradient(
+      rgba(255,255,255,0.5) var(--progressDeg, 0deg),
+      rgba(255,255,255,0.08) var(--progressDeg, 0deg)
+    );
+  -webkit-mask: radial-gradient(circle 62px at center, transparent 93%, #000 94%);
+          mask: radial-gradient(circle 62px at center, transparent 93%, #000 94%);
+  pointer-events: none;
+}
+
+/* Дуга комбо поверх основного кольца */
+.combo-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background:
+    conic-gradient(
+      rgba(198, 243, 255, 0.8) var(--comboDeg, 0deg),
+      rgba(255,255,255,0) var(--comboDeg, 0deg)
+    );
+  -webkit-mask: radial-gradient(circle 62px at center, transparent 93%, #000 94%);
+          mask: radial-gradient(circle 62px at center, transparent 93%, #000 94%);
+  filter: drop-shadow(0 0 6px rgba(198,243,255,0.35));
+  pointer-events: none;
+}
+
+.mystic-button-large {
+  width: 220px;
+  height: 220px;
+  border-width: 3px;
+  box-shadow: 
+    0 0 25px rgba(255, 255, 255, 0.25),
+    inset 0 0 30px rgba(0, 0, 0, 0.4);
+}
+
+.mystic-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.18) 0%, transparent 70%);
+  opacity: 0.5;
+  transition: opacity var(--transition-normal);
+}
+
+.mystic-button:hover,
+.mystic-button.hover {
+  transform: scale(1.05) translateZ(10px);
+  box-shadow: 
+    0 0 25px rgba(255, 255, 255, 0.25),
+    inset 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.mystic-button-large:hover,
+.mystic-button-large.hover {
+  transform: scale(1.03) translateZ(15px);
+  box-shadow: 
+    0 0 35px rgba(255, 255, 255, 0.3),
+    inset 0 0 30px rgba(0, 0, 0, 0.3);
+}
+
+.mystic-button:hover::before,
+.mystic-button.hover::before {
+  opacity: 0.8;
+}
+
+.mystic-button:active {
+  transform: scale(0.95);
+}
+
+.mystic-button-large:active {
+  transform: scale(0.97);
+}
+
+.mystic-button.animate {
+  animation: pulse 0.5s ease-out;
+}
+
+.mystic-button-large.animate {
+  animation: pulse-large 0.6s ease-out;
+}
+
+/* Combo active state */
+.mystic-button.combo-active {
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 
+    0 0 30px rgba(255, 255, 255, 0.4),
+    inset 0 0 30px rgba(255, 255, 255, 0.2);
+  animation: combo-pulse 1.5s infinite alternate;
+}
+
+.mystic-button-large.combo-active {
+  border: 3px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 
+    0 0 40px rgba(255, 255, 255, 0.5),
+    inset 0 0 40px rgba(255, 255, 255, 0.25);
+  animation: combo-pulse-large 1.5s infinite alternate;
+}
+
+.mystic-button.combo-active::before {
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+  opacity: 0.7;
+}
+
+.mystic-button.combo-active .mystic-symbol {
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+  animation: combo-float 1.5s ease-in-out infinite;
+}
+
+.mystic-button-large.combo-active .mystic-symbol {
+  animation: combo-float-large 1.5s ease-in-out infinite;
+}
+
+@keyframes combo-pulse {
+  0% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.2); }
+  100% { box-shadow: 0 0 40px rgba(255, 255, 255, 0.6), inset 0 0 30px rgba(255, 255, 255, 0.3); }
+}
+
+@keyframes combo-pulse-large {
+  0% { box-shadow: 0 0 30px rgba(255, 255, 255, 0.5), inset 0 0 30px rgba(255, 255, 255, 0.25); }
+  100% { box-shadow: 0 0 60px rgba(255, 255, 255, 0.7), inset 0 0 45px rgba(255, 255, 255, 0.35); }
+}
+
+@keyframes combo-float {
+  0% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-8px) scale(1.2); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+@keyframes combo-float-large {
+  0% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-12px) scale(1.3); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+.mystic-symbol {
+  font-size: 2.8rem;
+  color: var(--accent-gold);
+  z-index: 5;
+  text-shadow: 0 0 10px rgba(201, 169, 89, 0.7);
+  animation: float 3s ease-in-out infinite;
+  position: relative;
+}
+
+.symbol-large {
+  font-size: 5rem;
+  text-shadow: 0 0 15px rgba(201, 169, 89, 0.8);
+}
+
+.mystic-symbol::after {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  right: -15px;
+  bottom: -15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  animation: rotate 10s linear infinite;
+}
+
+.symbol-large::after {
+  top: -25px;
+  left: -25px;
+  right: -25px;
+  bottom: -25px;
+  border: 2px solid rgba(201, 169, 89, 0.3);
+}
+
+.mystic-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 40%, rgba(255,255,255,0.15), transparent 60%);
+  opacity: 0.7;
+  z-index: 1;
+  animation: glow 3s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+/* Орбитальные дорожки и руны вокруг символа */
+.orbits { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
+.orbit { position: absolute; inset: 0; }
+.orbit .rune {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: rotate(var(--angle)) translateX(-50%);
+  color: var(--accent, #c6f3ff);
+  opacity: 0.7;
+  filter: drop-shadow(0 0 6px rgba(198,243,255,0.35));
+}
+.orbit-1 .rune { font-size: 14px; }
+.orbit-2 .rune { font-size: 12px; top: 10px; opacity: 0.55; }
+.orbit-3 .rune { font-size: 10px; top: 14px; opacity: 0.45; }
+
+.mystic-particle {
+  position: absolute;
+  border-radius: 50%;
+  z-index: 6;
+  animation: particleFade 1s ease-out forwards;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.25);
+  pointer-events: none;
+}
+
+/* Inner rotating circles */
+.mystic-circle {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+}
+
+.mystic-button-large .mystic-circle {
+  border-width: 2px;
+}
+
+.circle-1 {
+  width: 80%;
+  height: 80%;
+  animation: rotate 20s linear infinite;
+}
+
+.circle-2 {
+  width: 60%;
+  height: 60%;
+  animation: rotate-reverse 15s linear infinite;
+}
+
+@keyframes rotate-reverse {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+/* Combo counter */
+.combo-counter {
+  position: absolute;
+  top: -25px;
+  right: -15px;
+  background: rgba(255, 255, 255, 0.85);
+  color: #000;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 3px 8px;
+  border-radius: 12px;
+  z-index: 10;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.counter-large {
+  top: -35px;
+  right: -25px;
+  font-size: 1.5rem;
+  padding: 5px 12px;
+  border-radius: 16px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.35);
+}
+
+.combo-active .combo-counter {
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+}
+
+/* Runes around the button */
+.mystic-button::after {
+  content: '';
+  position: absolute;
+  width: 150%;
+  height: 150%;
+  top: -25%;
+  left: -25%;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="49" stroke="%23FFFFFF" stroke-opacity="0.3" stroke-width="1" fill="none"/><path d="M50 10 L53 20 L47 20 Z" fill="%23FFFFFF" fill-opacity="0.5"/><path d="M80 50 L70 53 L70 47 Z" fill="%23FFFFFF" fill-opacity="0.5"/><path d="M50 90 L47 80 L53 80 Z" fill="%23FFFFFF" fill-opacity="0.5"/><path d="M20 50 L30 47 L30 53 Z" fill="%23FFFFFF" fill-opacity="0.5"/><path d="M65 20 L68 30 L62 28 Z" fill="%23FFFFFF" fill-opacity="0.5"/><path d="M80 65 L70 68 L72 62 Z" fill="%23FFFFFF" fill-opacity="0.5"/><path d="M35 80 L32 70 L38 72 Z" fill="%23FFFFFF" fill-opacity="0.5"/><path d="M20 35 L30 32 L28 38 Z" fill="%23FFFFFF" fill-opacity="0.5"/></svg>');
+  background-size: 100% 100%;
+  animation: rotate 30s linear infinite;
+  opacity: 0.7;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.mystic-button-large::after {
+  width: 160%;
+  height: 160%;
+  top: -30%;
+  left: -30%;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="49" stroke="%23FFFFFF" stroke-opacity="0.4" stroke-width="2" fill="none"/><path d="M50 10 L53 20 L47 20 Z" fill="%23FFFFFF" fill-opacity="0.6"/><path d="M80 50 L70 53 L70 47 Z" fill="%23FFFFFF" fill-opacity="0.6"/><path d="M50 90 L47 80 L53 80 Z" fill="%23FFFFFF" fill-opacity="0.6"/><path d="M20 50 L30 47 L30 53 Z" fill="%23FFFFFF" fill-opacity="0.6"/><path d="M65 20 L68 30 L62 28 Z" fill="%23FFFFFF" fill-opacity="0.6"/><path d="M80 65 L70 68 L72 62 Z" fill="%23FFFFFF" fill-opacity="0.6"/><path d="M35 80 L32 70 L38 72 Z" fill="%23FFFFFF" fill-opacity="0.6"/><path d="M20 35 L30 32 L28 38 Z" fill="%23FFFFFF" fill-opacity="0.6"/></svg>');
+  opacity: 0.8;
+}
+
+.combo-active::after {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="49" stroke="%23FFFFFF" stroke-opacity="0.5" stroke-width="1" fill="none"/><path d="M50 10 L53 20 L47 20 Z" fill="%23FFFFFF" fill-opacity="0.7"/><path d="M80 50 L70 53 L70 47 Z" fill="%23FFFFFF" fill-opacity="0.7"/><path d="M50 90 L47 80 L53 80 Z" fill="%23FFFFFF" fill-opacity="0.7"/><path d="M20 50 L30 47 L30 53 Z" fill="%23FFFFFF" fill-opacity="0.7"/><path d="M65 20 L68 30 L62 28 Z" fill="%23FFFFFF" fill-opacity="0.7"/><path d="M80 65 L70 68 L72 62 Z" fill="%23FFFFFF" fill-opacity="0.7"/><path d="M35 80 L32 70 L38 72 Z" fill="%23FFFFFF" fill-opacity="0.7"/><path d="M20 35 L30 32 L28 38 Z" fill="%23FFFFFF" fill-opacity="0.7"/></svg>');
+  animation: rotate 15s linear infinite;
+  opacity: 0.9;
+}
+
+.mystic-button-large.combo-active::after {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="49" stroke="%23FFFFFF" stroke-opacity="0.6" stroke-width="2" fill="none"/><path d="M50 10 L53 20 L47 20 Z" fill="%23FFFFFF" fill-opacity="0.8"/><path d="M80 50 L70 53 L70 47 Z" fill="%23FFFFFF" fill-opacity="0.8"/><path d="M50 90 L47 80 L53 80 Z" fill="%23FFFFFF" fill-opacity="0.8"/><path d="M20 50 L30 47 L30 53 Z" fill="%23FFFFFF" fill-opacity="0.8"/><path d="M65 20 L68 30 L62 28 Z" fill="%23FFFFFF" fill-opacity="0.8"/><path d="M80 65 L70 68 L72 62 Z" fill="%23FFFFFF" fill-opacity="0.8"/><path d="M35 80 L32 70 L38 72 Z" fill="%23FFFFFF" fill-opacity="0.8"/><path d="M20 35 L30 32 L28 38 Z" fill="%23FFFFFF" fill-opacity="0.8"/></svg>');
+  animation: rotate 12s linear infinite;
+  opacity: 1;
+}
+
+.tap-hint {
+  margin-top: 15px;
+  color: var(--text-secondary);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: var(--text-sm);
+  text-align: center;
+  font-style: italic;
+  transition: all 0.3s ease;
+}
+
+.combo-active + .tap-hint {
+  color: rgba(255, 255, 255, 0.8);
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); box-shadow: 0 0 30px rgba(255, 255, 255, 0.35); }
+  100% { transform: scale(1); }
+}
+
+@keyframes pulse-large {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); box-shadow: 0 0 40px rgba(255, 255, 255, 0.4); }
+  100% { transform: scale(1); }
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes glow {
+  0% { opacity: 0.5; transform: scale(0.9); }
+  100% { opacity: 0.8; transform: scale(1.1); }
+}
+
+@keyframes particleFade {
+  0% { 
+    transform: rotate(var(--angle, 0deg)) translateY(0);
+    opacity: 1;
+  }
+  100% { 
+    transform: rotate(var(--angle, 0deg)) translateY(-100px);
+    opacity: 0;
+  }
+}
+
+/* Новые анимации для баланса */
+@keyframes mystical-appear {
+  0% { 
+    opacity: 0; 
+    transform: scale(0.8) translateY(20px);
+    text-shadow: 0 0 10px rgba(201, 169, 89, 0);
+  }
+  100% { 
+    opacity: 1; 
+    transform: scale(1) translateY(0);
+    text-shadow: 0 0 15px rgba(201, 169, 89, 0.7);
+  }
+}
+
+/* Стили для баланса */
+.balance-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(42, 23, 69, 0.7) 0%, rgba(26, 60, 52, 0.7) 100%);
+  border-radius: 20px;
+  padding: 8px 15px;
+  box-shadow: 
+    0 0 15px rgba(255, 255, 255, 0.18),
+    inset 0 0 10px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  transition: all 0.3s ease;
+}
+
+.balance-value {
+  font-family: 'Uncial Antiqua', cursive;
+  color: #E6E6E6;
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  animation: mystical-appear 0.7s ease-out;
+  position: relative;
+}
+
+.balance-value::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.35), transparent);
+  opacity: 0.7;
+}
+
+.balance-container:hover {
+  transform: scale(1.05);
+  box-shadow: 
+    0 0 25px rgba(255, 255, 255, 0.25),
+    inset 0 0 15px rgba(0, 0, 0, 0.4);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .balance-container {
+    padding: 6px 12px;
+  }
+  
+  .balance-value {
+    font-size: 1.3rem;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .mystic-button-container {
+    width: 130px;
+    height: 160px;
+  }
+  
+  .large-container {
+    width: 240px;
+    height: 280px;
+  }
+  
+  .mystic-button {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .mystic-button-large {
+    width: 180px;
+    height: 180px;
+  }
+  
+  .mystic-symbol {
+    font-size: 2.2rem;
+  }
+  
+  .symbol-large {
+    font-size: 4rem;
+  }
+}

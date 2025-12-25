@@ -1,0 +1,457 @@
+/* Стили для экрана артефактов в мистическом стиле */
+:root {
+  --dark-purple: #3C2F4F;
+  --beige-parchment: #E8D3A9;
+  --dark-turquoise: #1A3C34;
+  --inky-blue: #1B263B;
+  --moon-blue: #A8C7FA;
+}
+
+/* Основной контейнер */
+.artifacts-screen {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  padding: 20px;
+  padding-bottom: 80px;
+  color: var(--beige-parchment);
+  font-family: 'Cinzel', serif;
+  overflow-x: hidden;
+  background: transparent;
+  will-change: transform; /* Оптимизация для производительности */
+}
+
+/* Мистический фоновый эффект - упрощен для производительности */
+.mystical-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at center, 
+    rgba(168, 199, 250, 0.03) 0%, 
+    transparent 60%
+  );
+  pointer-events: none;
+  z-index: -1;
+  transform: translateZ(0); /* Аппаратное ускорение */
+}
+
+/* Мистические частицы - оптимизировано */
+.mystical-particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+  will-change: transform, opacity; /* Оптимизация для анимаций */
+  transform: translateZ(0); /* Аппаратное ускорение */
+}
+
+/* Заголовок экрана */
+.artifacts-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 20px;
+  background: rgba(27, 38, 59, 0.7);
+  border: 1px solid rgba(232, 211, 169, 0.3);
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Упрощённая тень */
+  backdrop-filter: none; /* Убираем blur для повышения производительности */
+}
+
+.artifacts-header h2 {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  color: var(--beige-parchment);
+  text-shadow: 0 0 5px rgba(232, 211, 169, 0.3); /* Упрощённый текстовый эффект */
+  margin: 0;
+}
+
+.artifacts-header svg {
+  margin-right: 10px;
+  color: var(--beige-parchment);
+}
+
+/* Панель управления */
+.artifacts-controls {
+  background: rgba(27, 38, 59, 0.7);
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(232, 211, 169, 0.3);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Упрощённая тень */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  transform: translateZ(0); /* Аппаратное ускорение */
+}
+
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 15px;
+  color: rgba(232, 211, 169, 0.7);
+  font-size: 1rem;
+}
+
+.search-input {
+  width: 100%;
+  background: rgba(60, 47, 79, 0.7);
+  border: 1px solid rgba(232, 211, 169, 0.2);
+  color: var(--beige-parchment);
+  padding: 12px 15px 12px 40px;
+  border-radius: 8px;
+  font-family: 'Cinzel', serif;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--beige-parchment);
+  box-shadow: 0 0 5px rgba(232, 211, 169, 0.3); /* Уменьшена интенсивность эффекта */
+}
+
+.sort-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sort-label {
+  display: flex;
+  align-items: center;
+  color: rgba(232, 211, 169, 0.7);
+  font-size: 0.9rem;
+}
+
+.sort-label svg {
+  margin-right: 8px;
+}
+
+.sort-options {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.sort-button {
+  background: rgba(60, 47, 79, 0.7);
+  color: var(--beige-parchment);
+  border: 1px solid rgba(232, 211, 169, 0.2);
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.3s ease; /* Оптимизировано: только самые важные свойства для анимации */
+}
+
+.sort-button:hover {
+  background: rgba(26, 60, 52, 0.7);
+  border-color: var(--beige-parchment);
+}
+
+.sort-button.active {
+  background: rgba(26, 60, 52, 0.7);
+  border-color: var(--beige-parchment);
+  box-shadow: 0 0 5px rgba(232, 211, 169, 0.3); /* Уменьшена интенсивность эффекта */
+}
+
+/* Список артефактов */
+.artifacts-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+  will-change: opacity, transform; /* Оптимизация для анимаций */
+}
+
+.artifact-item {
+  background: rgba(60, 47, 79, 0.5);
+  border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Оптимизировано: только самые важные свойства */
+  border: 1px solid rgba(232, 211, 169, 0.2);
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Упрощённая тень */
+  transform: translateZ(0); /* Аппаратное ускорение */
+}
+
+.artifact-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.artifact-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  color: var(--beige-parchment);
+  transition: transform 0.3s ease; /* Оптимизировано: только самые важные свойства */
+  will-change: transform; /* Оптимизация для анимаций */
+}
+
+.artifact-info {
+  flex-grow: 1;
+}
+
+.artifact-info h3 {
+  margin: 0 0 5px;
+  color: var(--beige-parchment);
+  font-size: 1.1rem;
+}
+
+.artifact-type {
+  color: rgba(232, 211, 169, 0.7);
+  font-size: 0.9rem;
+  margin-bottom: 3px;
+}
+
+.artifact-rarity {
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.artifact-quantity {
+  display: inline-block;
+  padding: 2px 6px;
+  background: rgba(27, 38, 59, 0.7);
+  border-radius: 4px;
+  font-size: 0.8rem;
+  color: var(--beige-parchment);
+}
+
+/* Сообщение об отсутствии артефактов */
+.no-artifacts {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px 20px;
+  background: rgba(60, 47, 79, 0.5);
+  border-radius: 10px;
+  border: 1px solid rgba(232, 211, 169, 0.2);
+  color: rgba(232, 211, 169, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.no-artifacts svg {
+  font-size: 2rem;
+  color: var(--beige-parchment);
+  opacity: 0.7;
+}
+
+.no-artifacts p {
+  font-family: 'Caveat', cursive;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+/* Детали артефакта - оптимизировано */
+.artifact-details-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: none; /* Убираем blur для повышения производительности */
+  will-change: opacity; /* Оптимизация для анимаций */
+}
+
+.artifact-details {
+  background: rgba(27, 38, 59, 0.9);
+  border-radius: 10px;
+  padding: 20px;
+  width: 90%;
+  max-width: 450px;
+  max-height: 80vh;
+  overflow-y: auto;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Упрощённая тень */
+  transform: translateZ(0); /* Аппаратное ускорение */
+  will-change: transform, opacity; /* Оптимизация для анимаций */
+}
+
+.artifact-details-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.artifact-details-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-right: 15px;
+  color: var(--beige-parchment);
+}
+
+.artifact-details-header h3 {
+  flex-grow: 1;
+  margin: 0;
+  color: var(--beige-parchment);
+  font-size: 1.3rem;
+}
+
+.close-details-btn {
+  background: none;
+  border: none;
+  color: var(--beige-parchment);
+  font-size: 1.2rem;
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.artifact-details-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.artifact-details-info {
+  background: rgba(60, 47, 79, 0.5);
+  border-radius: 8px;
+  padding: 15px;
+  border: 1px solid rgba(232, 211, 169, 0.2);
+}
+
+.artifact-details-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.artifact-details-row:last-child {
+  margin-bottom: 0;
+}
+
+.detail-label {
+  color: rgba(232, 211, 169, 0.7);
+}
+
+.detail-value {
+  color: var(--beige-parchment);
+  font-weight: bold;
+}
+
+.artifact-details-description,
+.artifact-details-effect {
+  background: rgba(60, 47, 79, 0.5);
+  border-radius: 8px;
+  padding: 15px;
+  border: 1px solid rgba(232, 211, 169, 0.2);
+}
+
+.artifact-details-description h4,
+.artifact-details-effect h4 {
+  color: var(--beige-parchment);
+  margin: 0 0 10px;
+  font-size: 1.1rem;
+}
+
+.artifact-details-description p,
+.artifact-details-effect p {
+  color: rgba(232, 211, 169, 0.9);
+  margin: 0;
+  font-family: 'Caveat', cursive;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.artifact-details-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.use-artifact-btn {
+  background: rgba(26, 60, 52, 0.7);
+  color: var(--beige-parchment);
+  border: 1px solid rgba(232, 211, 169, 0.3);
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease; /* Оптимизировано: только самые важные свойства */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.use-artifact-btn:hover {
+  background: rgba(26, 60, 52, 0.9);
+  box-shadow: 0 0 8px rgba(26, 60, 52, 0.5); /* Уменьшена интенсивность эффекта */
+}
+
+/* Кастомный скроллбар - оптимизирован */
+.artifact-details::-webkit-scrollbar {
+  width: 6px;
+}
+
+.artifact-details::-webkit-scrollbar-track {
+  background: rgba(27, 38, 59, 0.7);
+  border-radius: 3px;
+}
+
+.artifact-details::-webkit-scrollbar-thumb {
+  background: rgba(232, 211, 169, 0.3);
+  border-radius: 3px;
+}
+
+.artifact-details::-webkit-scrollbar-thumb:hover {
+  background: rgba(232, 211, 169, 0.5);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .artifacts-screen {
+    padding: 10px;
+  }
+  
+  .artifacts-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .sort-options {
+    flex-direction: column;
+  }
+  
+  .sort-button {
+    width: 100%;
+  }
+} 

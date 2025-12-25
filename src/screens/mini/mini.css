@@ -1,0 +1,340 @@
+/* Shared minimal styles for mini-games */
+.mini-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mini-panel {
+  width: 92%;
+  max-width: 520px;
+  border: 1px solid rgba(232, 211, 169, 0.25);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(27,38,59,0.95), rgba(27,38,59,0.88));
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+}
+
+.mini-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  color: #E8D3A9;
+  border-bottom: 1px solid rgba(232, 211, 169, 0.15);
+}
+
+.mini-body { padding: 16px; color: #E8D3A9; }
+.mini-actions { display: flex; gap: 10px; justify-content: center; margin-top: 14px; }
+
+.btn { 
+  background: rgba(60,47,79,0.7);
+  color: #E8D3A9;
+  border: 1px solid rgba(232, 211, 169, 0.25);
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+.btn.primary { background: rgba(26,60,52,0.8); }
+
+/* PotionLab */
+.ingredients { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; margin-bottom: 14px; }
+.ingr { display:flex; gap:8px; align-items:center; justify-content:center; padding:8px 10px; border-radius:8px; background: rgba(60,47,79,0.5); border:1px solid rgba(232,211,169,0.2); color:#E8D3A9; }
+.cauldron { position: relative; height: 160px; border-radius: 16px; border:1px solid rgba(232,211,169,0.2); background: rgba(0,0,0,0.2); overflow:hidden; }
+.liquid { position:absolute; inset: 35% 8px 8px 8px; border-radius: 12px; }
+.bubbles { position:absolute; inset: 35% 8px 8px 8px; pointer-events:none; }
+.bubbles span { position:absolute; bottom: 6px; left: 50%; width: 6px; height:6px; background: rgba(168,199,250,0.9); border-radius:50%; filter: blur(0.4px); animation: rise 2.6s ease-in infinite; animation-delay: var(--d); }
+@keyframes rise { 0% { transform: translateX(0) translateY(0) scale(0.8); opacity: 0.0; } 20%{ opacity: 1; } 100% { transform: translateX(calc(-40px + 80px * random())) translateY(-120px) scale(1.2); opacity: 0; } }
+.mini-hint { text-align:center; opacity:0.8; margin-top:6px; font-size: 0.95rem; }
+
+/* CrystalMine */
+.mine { display:flex; align-items:center; gap: 12px; justify-content:center; }
+.bar { position: relative; height: 14px; width: 280px; border-radius:999px; background: rgba(60,47,79,0.6); border: 1px solid rgba(232,211,169,0.2); overflow:hidden; }
+.sweet { position:absolute; top:0; bottom:0; background: rgba(26,60,52,0.7); }
+.sweet-1 { left: 42%; width: 6%; }
+.sweet-2 { left: 48%; width: 4%; background: rgba(168,199,250,0.8); }
+.marker { position:absolute; top:-4px; width: 6px; bottom:-4px; border-radius: 6px; background: linear-gradient(180deg, #A8C7FA, #1A3C34); box-shadow: 0 0 10px rgba(168,199,250,0.6); transform: translateX(-50%); }
+
+/* AlchemyLab */
+.fullscreen-overlay { 
+  position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 1500; 
+  display: flex; align-items: center; justify-content: center;
+}
+.fullscreen-alchemy { 
+  width: 95vw; height: 90vh; max-width: 1200px; max-height: 800px;
+  background: linear-gradient(180deg, rgba(27,38,59,0.98), rgba(60,47,79,0.95));
+  border: 2px solid rgba(232,211,169,0.4); border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+}
+.alchemy-body { 
+  padding: 30px; height: calc(100% - 60px); overflow-y: auto;
+  display: flex; gap: 30px; align-items: flex-start;
+}
+
+/* Анимированная колба */
+.alchemy-flask-container {
+  display: flex; flex-direction: column; align-items: center; gap: 15px;
+}
+.alchemy-flask {
+  position: relative; width: 200px; height: 300px;
+  background: linear-gradient(180deg, 
+    rgba(139,115,85,0.1) 0%, 
+    rgba(139,115,85,0.2) 30%, 
+    transparent 31%
+  );
+  border-radius: 20px 20px 100px 100px;
+  border: 3px solid #8B7355;
+  overflow: hidden;
+  box-shadow: 
+    inset 0 0 20px rgba(255,255,255,0.1),
+    0 10px 30px rgba(0,0,0,0.5);
+  animation: gentleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes gentleGlow {
+  0% { box-shadow: inset 0 0 20px rgba(255,255,255,0.1), 0 10px 30px rgba(0,0,0,0.5); }
+  100% { box-shadow: inset 0 0 30px rgba(255,255,255,0.2), 0 15px 40px rgba(74,144,226,0.3); }
+}
+
+.liquid {
+  position: absolute; bottom: 0; width: 100%;
+  border-radius: 0 0 100px 100px;
+  transition: all 0.5s ease;
+}
+
+@keyframes liquidBubble {
+  0%, 100% { transform: translateY(0) scaleY(1); }
+  50% { transform: translateY(-3px) scaleY(1.01); }
+}
+
+.flask-shine {
+  position: absolute; top: 20px; left: 30px;
+  width: 15px; height: 60px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.6), transparent);
+  border-radius: 10px;
+  pointer-events: none;
+}
+
+/* Температурный индикатор */
+.temperature-indicator {
+  display: flex; align-items: center; gap: 10px;
+}
+.temp-gauge {
+  width: 12px; height: 80px;
+  background: rgba(60,47,79,0.5);
+  border: 2px solid #8B7355;
+  border-radius: 6px;
+  position: relative; overflow: hidden;
+}
+.temp-mercury {
+  position: absolute; bottom: 0; width: 100%;
+  transition: all 0.3s ease;
+  border-radius: 0 0 3px 3px;
+}
+.temp-value {
+  font-size: 14px; color: #E8D3A9;
+  text-align: center; min-width: 60px;
+}
+
+/* Панели алхимии */
+.ingredients-panel {
+  flex: 1; max-width: 300px;
+  background: rgba(27,38,59,0.3);
+  border-radius: 12px; padding: 20px;
+  border: 1px solid rgba(232,211,169,0.2);
+}
+.ingredients-panel h4 { 
+  margin: 0 0 15px; color: #E8D3A9; 
+  text-align: center; font-size: 18px;
+}
+
+.ingredient-bottle.enhanced {
+  position: relative; overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.ingredient-bottle.enhanced:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+.bottle-glow {
+  position: absolute; inset: -2px;
+  background: linear-gradient(45deg, 
+    transparent, 
+    var(--ingredient-color, #A8C7FA), 
+    transparent
+  );
+  opacity: 0; border-radius: 8px;
+  transition: opacity 0.3s ease;
+}
+.ingredient-bottle.enhanced:hover .bottle-glow {
+  opacity: 0.3;
+}
+
+.selected-ingredients-list {
+  margin-top: 20px; padding-top: 15px;
+  border-top: 1px solid rgba(232,211,169,0.2);
+}
+.selected-ingredients-list h5 {
+  margin: 0 0 10px; color: #E8D3A9; font-size: 14px;
+}
+.ingredient-chip {
+  display: inline-block; padding: 4px 8px; margin: 2px;
+  border-radius: 12px; font-size: 12px; color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.flask-area {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  position: relative;
+}
+.flame-base {
+  margin-top: 10px; font-size: 24px;
+  text-shadow: 0 0 10px rgba(255,100,0,0.8);
+  animation: flameFlicker 0.5s ease-in-out infinite alternate;
+  transition: opacity 0.3s ease;
+}
+@keyframes flameFlicker {
+  0% { transform: scale(1) rotate(-1deg); }
+  100% { transform: scale(1.05) rotate(1deg); }
+}
+
+/* Правая панель управления */
+.control-panel {
+  flex: 1; max-width: 300px;
+  background: rgba(27,38,59,0.3);
+  border-radius: 12px; padding: 20px;
+  border: 1px solid rgba(232,211,169,0.2);
+}
+.control-panel h4 { 
+  margin: 0 0 15px; color: #E8D3A9; 
+  text-align: center; font-size: 18px;
+}
+
+.brewing-stage-indicator {
+  margin-bottom: 20px;
+}
+.stage {
+  padding: 8px 12px; margin: 4px 0;
+  background: rgba(60,47,79,0.3);
+  border-radius: 8px; color: #A8C7FA;
+  font-size: 14px; border-left: 3px solid transparent;
+  transition: all 0.3s ease;
+}
+.stage.active {
+  background: rgba(168,199,250,0.2);
+  border-left-color: #A8C7FA;
+  color: #E8D3A9;
+  box-shadow: 0 0 10px rgba(168,199,250,0.3);
+}
+
+.brewing-controls {
+  margin: 20px 0;
+}
+.brew-btn {
+  width: 100%; padding: 12px; margin: 8px 0;
+  background: rgba(60,47,79,0.5);
+  border: 1px solid rgba(232,211,169,0.3);
+  border-radius: 8px; color: #E8D3A9;
+  font-size: 16px; cursor: pointer;
+  transition: all 0.3s ease;
+}
+.brew-btn:hover {
+  background: rgba(60,47,79,0.7);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.brew-btn.primary {
+  background: linear-gradient(135deg, rgba(168,199,250,0.3), rgba(26,60,52,0.5));
+  border-color: #A8C7FA;
+}
+.brew-btn.primary:hover {
+  background: linear-gradient(135deg, rgba(168,199,250,0.4), rgba(26,60,52,0.6));
+}
+
+.heating-controls .temp-info {
+  margin-top: 10px; padding: 10px;
+  background: rgba(60,47,79,0.2);
+  border-radius: 6px; font-size: 14px;
+  color: #E8D3A9;
+}
+.optimal-temp {
+  margin-top: 5px; font-size: 12px;
+  color: #A8C7FA;
+}
+
+.alchemy-hint {
+  margin-top: 15px; padding: 10px;
+  background: rgba(26,60,52,0.3);
+  border-radius: 8px; color: #E8D3A9;
+  font-size: 14px; text-align: center;
+  border: 1px solid rgba(168,199,250,0.2);
+}
+.ingredients-shelf { margin-bottom: 20px; }
+.ingredients-shelf h4 { margin: 0 0 10px; color: #E8D3A9; }
+.ingredients-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.ingredient-bottle { 
+  position: relative; width: 60px; height: 80px; background: linear-gradient(180deg, rgba(232,211,169,0.1), rgba(60,47,79,0.3));
+  border: 1px solid rgba(232,211,169,0.3); border-radius: 8px 8px 20px 20px; cursor: pointer; transition: all 0.3s;
+}
+.ingredient-bottle:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(168,199,250,0.3); }
+.bottle-liquid { position: absolute; bottom: 8px; left: 8px; right: 8px; height: 40px; border-radius: 4px 4px 12px 12px; }
+.bottle-label { position: absolute; top: 4px; left: 2px; right: 2px; font-size: 9px; text-align: center; color: #E8D3A9; }
+.bottle-temp { position: absolute; bottom: 2px; left: 2px; right: 2px; font-size: 8px; text-align: center; color: #A8C7FA; }
+
+.cauldron-area { display: flex; align-items: flex-end; justify-content: center; gap: 20px; margin: 20px 0; }
+.cauldron { 
+  position: relative; width: 120px; height: 120px; background: linear-gradient(180deg, #2C2C2C, #1A1A1A);
+  border-radius: 50% 50% 60% 60%; border: 3px solid rgba(232,211,169,0.4); overflow: hidden;
+}
+.cauldron-liquid { 
+  position: absolute; bottom: 10px; left: 10px; right: 10px; height: 60px; border-radius: 50% 50% 50% 50%;
+  transition: background-color 0.5s; overflow: hidden;
+}
+.bubble { 
+  position: absolute; background: rgba(255,255,255,0.6); border-radius: 50%; 
+  animation: bubble-rise 2s linear infinite;
+}
+@keyframes bubble-rise { 0% { transform: translateY(0) scale(1); opacity: 0.8; } 100% { transform: translateY(-60px) scale(0.3); opacity: 0; } }
+
+.selected-ingredients { position: absolute; top: 10px; left: 10px; right: 10px; height: 30px; }
+.floating-ingredient { 
+  position: absolute; width: 20px; height: 20px; background: rgba(232,211,169,0.8); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 10px; color: #3C2F4F;
+  animation: float-ingredient 3s ease-in-out infinite;
+}
+@keyframes float-ingredient { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+.flame { font-size: 24px; animation: flicker 0.5s ease-in-out infinite alternate; }
+@keyframes flicker { 0% { transform: scale(1) rotate(-2deg); } 100% { transform: scale(1.1) rotate(2deg); } }
+
+.thermometer { display: flex; flex-direction: column; align-items: center; }
+.temp-scale { 
+  width: 12px; height: 100px; background: rgba(60,47,79,0.6); border: 1px solid rgba(232,211,169,0.3);
+  border-radius: 6px; position: relative; overflow: hidden;
+}
+.temp-mercury { 
+  position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(180deg, #FF6B6B, #F39C12);
+  transition: height 0.3s; border-radius: 0 0 4px 4px;
+}
+.temp-reading { margin-top: 8px; font-size: 12px; color: #E8D3A9; }
+
+.brewing-controls { display: flex; justify-content: center; gap: 10px; margin: 20px 0 10px; }
+.brew-btn { 
+  padding: 10px 20px; border: 1px solid rgba(232,211,169,0.3); border-radius: 8px; 
+  background: rgba(60,47,79,0.7); color: #E8D3A9; cursor: pointer; transition: all 0.3s;
+}
+.brew-btn.primary { background: rgba(26,60,52,0.8); border-color: #A8C7FA; }
+.brew-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
+
+.alchemy-hint { text-align: center; color: rgba(232,211,169,0.8); font-size: 14px; margin-top: 10px; }
+.close-btn { 
+  background: none; border: none; color: #E8D3A9; font-size: 18px; cursor: pointer;
+  width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;
+}
+
+

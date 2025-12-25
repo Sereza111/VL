@@ -1,0 +1,471 @@
+/* AdvancedPortalManager CSS - Кинематографические портальные эффекты */
+
+/* Основной контейнер портала */
+.advanced-portal-container {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  will-change: transform, opacity, width, height;
+}
+
+/* Состояния портала */
+.portal-state-opening {
+  animation: portalSpaceRip 1.2s ease-out forwards;
+}
+
+.portal-state-webgl {
+  animation: portalEnergyPulse 2s ease-in-out infinite;
+}
+
+.portal-state-expanding {
+  animation: portalExpanding 1s ease-in-out forwards;
+}
+
+.portal-state-laboratory {
+  border-radius: 0 !important;
+  background: linear-gradient(135deg, 
+    rgba(60, 47, 79, 0.95) 0%, 
+    rgba(27, 38, 59, 0.9) 50%, 
+    rgba(26, 60, 52, 0.85) 100%);
+}
+
+/* WebGL Canvas стили */
+.portal-webgl-canvas {
+  mix-blend-mode: screen;
+  filter: blur(0.5px);
+  transition: opacity 0.5s ease;
+}
+
+/* 3D Анимация разрыва пространства */
+@keyframes portalSpaceRip {
+  0% {
+    transform: scale(0) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+    opacity: 0;
+    filter: blur(20px) brightness(0.5);
+    box-shadow: 
+      0 0 0 rgba(168, 199, 250, 0),
+      inset 0 0 0 rgba(26, 60, 52, 0);
+  }
+  15% {
+    transform: scale(0.2) rotateX(45deg) rotateY(90deg) rotateZ(45deg);
+    opacity: 0.3;
+    filter: blur(15px) brightness(0.7);
+    box-shadow: 
+      0 0 20px rgba(168, 199, 250, 0.3),
+      inset 0 0 10px rgba(26, 60, 52, 0.3);
+  }
+  30% {
+    transform: scale(0.5) rotateX(90deg) rotateY(180deg) rotateZ(90deg);
+    opacity: 0.6;
+    filter: blur(10px) brightness(0.9);
+    box-shadow: 
+      0 0 40px rgba(168, 199, 250, 0.6),
+      inset 0 0 20px rgba(26, 60, 52, 0.6);
+  }
+  60% {
+    transform: scale(0.8) rotateX(360deg) rotateY(360deg) rotateZ(180deg);
+    opacity: 0.85;
+    filter: blur(5px) brightness(1.1);
+    box-shadow: 
+      0 0 60px rgba(168, 199, 250, 0.8),
+      inset 0 0 30px rgba(26, 60, 52, 0.8);
+  }
+  85% {
+    transform: scale(1.05) rotateX(450deg) rotateY(450deg) rotateZ(270deg);
+    opacity: 0.95;
+    filter: blur(2px) brightness(1.2);
+    box-shadow: 
+      0 0 80px rgba(168, 199, 250, 0.9),
+      inset 0 0 40px rgba(26, 60, 52, 0.9);
+  }
+  100% {
+    transform: scale(1) rotateX(720deg) rotateY(720deg) rotateZ(360deg);
+    opacity: 1;
+    filter: blur(0px) brightness(1);
+    box-shadow: 
+      0 0 50px rgba(168, 199, 250, 0.5),
+      inset 0 0 30px rgba(26, 60, 52, 0.8);
+  }
+}
+
+/* Энергетический пульс портала */
+@keyframes portalEnergyPulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 50px rgba(168, 199, 250, 0.5),
+      inset 0 0 30px rgba(26, 60, 52, 0.8),
+      0 0 100px rgba(168, 199, 250, 0.2);
+  }
+  50% {
+    box-shadow: 
+      0 0 80px rgba(168, 199, 250, 0.8),
+      inset 0 0 50px rgba(26, 60, 52, 1),
+      0 0 150px rgba(168, 199, 250, 0.4);
+    transform: scale(1.02);
+  }
+}
+
+/* Расширение портала до fullscreen */
+@keyframes portalExpanding {
+  0% {
+    border-radius: 50%;
+    transform: scale(1);
+  }
+  30% {
+    border-radius: 40%;
+    transform: scale(1.1);
+  }
+  70% {
+    border-radius: 20%;
+    transform: scale(1.2);
+  }
+  100% {
+    border-radius: 0%;
+    transform: scale(1);
+  }
+}
+
+/* Частицы при открытии портала */
+.portal-opening-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.portal-particle {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform, opacity;
+}
+
+/* Анимации частиц */
+@keyframes portalParticle0 {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+  20% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(calc(-50% + 80px), calc(-50% - 60px)) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes portalParticle1 {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+  20% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(calc(-50% - 80px), calc(-50% - 60px)) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes portalParticle2 {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+  20% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(calc(-50% + 60px), calc(-50% + 80px)) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes portalParticle3 {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+  20% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(calc(-50% - 60px), calc(-50% + 80px)) scale(0);
+    opacity: 0;
+  }
+}
+
+/* Магические руны вокруг портала */
+.portal-magic-effects {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.portal-runes {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.portal-rune {
+  position: absolute;
+  font-family: serif;
+  font-weight: bold;
+  text-align: center;
+  user-select: none;
+  will-change: transform;
+}
+
+@keyframes portalRune {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg) translateY(-80px) scale(0.8);
+    opacity: 0.6;
+  }
+  25% {
+    transform: translate(-50%, -50%) rotate(90deg) translateY(-80px) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(180deg) translateY(-80px) scale(1.2);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translate(-50%, -50%) rotate(270deg) translateY(-80px) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg) translateY(-80px) scale(0.8);
+    opacity: 0.6;
+  }
+}
+
+/* Лаборатория внутри портала */
+.portal-laboratory {
+  border-radius: inherit;
+  overflow: hidden;
+  backdrop-filter: blur(1px);
+}
+
+/* Fullscreen fallback для мобильных */
+.portal-fullscreen-fallback {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 999999 !important;
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.portal-fullscreen-fallback .advanced-portal-container {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  border-radius: 0 !important;
+}
+
+/* Адаптивные стили для мобильных устройств */
+@media (max-width: 768px) {
+  .advanced-portal-container {
+    perspective: 800px;
+  }
+  
+  .portal-state-opening {
+    animation-duration: 0.8s;
+  }
+  
+  .portal-rune {
+    font-size: 14px !important;
+  }
+  
+  @keyframes portalRune {
+    0%, 100% {
+      transform: translate(-50%, -50%) rotate(0deg) translateY(-60px) scale(0.7);
+    }
+    50% {
+      transform: translate(-50%, -50%) rotate(180deg) translateY(-60px) scale(1);
+    }
+  }
+  
+  .portal-particle {
+    width: 3px !important;
+    height: 3px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .advanced-portal-container {
+    perspective: 600px;
+  }
+  
+  .portal-rune {
+    font-size: 12px !important;
+  }
+  
+  @keyframes portalRune {
+    0%, 100% {
+      transform: translate(-50%, -50%) rotate(0deg) translateY(-40px) scale(0.6);
+    }
+    50% {
+      transform: translate(-50%, -50%) rotate(180deg) translateY(-40px) scale(0.9);
+    }
+  }
+}
+
+/* Улучшенная производительность для слабых устройств */
+@media (max-width: 480px), (max-height: 600px) {
+  .portal-state-webgl {
+    animation: none; /* Отключаем сложные анимации на слабых устройствах */
+  }
+  
+  .portal-webgl-canvas {
+    filter: none; /* Убираем размытие для экономии GPU */
+  }
+  
+  .portal-opening-particles {
+    display: none; /* Отключаем частицы */
+  }
+  
+  .portal-magic-effects {
+    opacity: 0.5; /* Уменьшаем интенсивность эффектов */
+  }
+}
+
+/* Поддержка высокого контраста */
+.high-contrast .advanced-portal-container {
+  border: 3px solid #FFFFFF;
+  background: rgba(0, 0, 0, 0.9) !important;
+}
+
+.high-contrast .portal-rune {
+  color: #FFFFFF !important;
+  text-shadow: 2px 2px 4px #000000 !important;
+}
+
+.high-contrast .portal-particle {
+  background: #FFFFFF !important;
+  box-shadow: 0 0 5px #FFFFFF !important;
+}
+
+/* Анимации для клавиатурной навигации */
+.advanced-portal-container:focus-visible {
+  outline: 3px solid rgba(168, 199, 250, 0.8);
+  outline-offset: 5px;
+}
+
+/* Улучшения доступности */
+@media (prefers-reduced-motion: reduce) {
+  .advanced-portal-container,
+  .portal-rune,
+  .portal-particle {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  .portal-state-opening {
+    animation: portalSimpleAppear 0.3s ease-out forwards;
+  }
+}
+
+@keyframes portalSimpleAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Эффекты для различных браузеров */
+@supports (-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px)) {
+  .portal-laboratory {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+}
+
+/* Оптимизация для WebGL */
+.portal-webgl-canvas {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+}
+
+/* Дополнительные визуальные эффекты */
+.advanced-portal-container::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    rgba(168, 199, 250, 0.1),
+    transparent,
+    rgba(255, 215, 0, 0.1),
+    transparent
+  );
+  animation: portalAura 4s linear infinite;
+  z-index: -1;
+}
+
+@keyframes portalAura {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Специальные эффекты для темной темы */
+@media (prefers-color-scheme: dark) {
+  .advanced-portal-container {
+    box-shadow: 
+      0 0 50px rgba(168, 199, 250, 0.3),
+      inset 0 0 30px rgba(26, 60, 52, 0.6),
+      0 0 100px rgba(168, 199, 250, 0.1);
+  }
+}
+
+/* Анимация исчезновения портала */
+@keyframes portalDisappear {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+    filter: blur(0px);
+  }
+  50% {
+    transform: scale(0.5) rotate(-180deg);
+    opacity: 0.5;
+    filter: blur(5px);
+  }
+  100% {
+    transform: scale(0) rotate(-360deg);
+    opacity: 0;
+    filter: blur(10px);
+  }
+}
+
+.portal-state-closing {
+  animation: portalDisappear 0.6s ease-in-back forwards;
+}

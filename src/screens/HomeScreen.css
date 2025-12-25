@@ -1,0 +1,426 @@
+/* Мистический дневник мага */
+:root {
+  --dark-purple: #3C2F4F;
+  --beige-parchment: #E8D3A9;
+  --dark-turquoise: #1A3C34;
+  --inky-blue: #1B263B;
+  --moon-blue: #A8C7FA;
+}
+
+.home-screen {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  background: transparent;
+}
+
+.journal-container {
+  position: relative;
+  width: 90%;
+  max-width: 500px;
+  height: 80vh;
+  max-height: 700px;
+  background: rgba(232, 213, 183, 0.1);
+  border-radius: 20px;
+  box-shadow: 
+    0 15px 50px rgba(0, 0, 0, 0.2),
+    inset 0 0 20px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(232, 211, 169, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.journal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: rgba(27, 38, 59, 0.3);
+  border-bottom: 1px solid rgba(232, 211, 169, 0.1);
+}
+
+.journal-title {
+  font-family: 'Uncial Antiqua', serif;
+  color: var(--beige-parchment);
+  font-size: 1.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.journal-theme-selector {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: rgba(232, 211, 169, 0.2);
+}
+
+.journal-theme-selector:hover {
+  transform: rotate(15deg) scale(1.1);
+}
+
+.journal-theme-selector svg {
+  color: var(--beige-parchment);
+  font-size: 1.2rem;
+}
+
+.journal-page {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background: transparent !important;
+  position: relative;
+  z-index: 2;
+}
+
+.journal-input {
+  flex-grow: 1;
+  width: 100%;
+  background: transparent !important;
+  border: none;
+  resize: none;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--ink-blue);
+  padding: 0;
+  outline: none;
+  z-index: 3;
+  position: relative;
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+.journal-input::before,
+.journal-input::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent !important;
+  z-index: -1;
+}
+
+.journal-input::-webkit-scrollbar {
+  width: 6px;
+}
+
+.journal-input::-webkit-scrollbar-thumb {
+  background-color: rgba(60, 47, 79, 0.3);
+  border-radius: 10px;
+}
+
+.journal-input::placeholder {
+  color: rgba(27, 38, 59, 0.5);
+}
+
+.journal-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: rgba(27, 38, 59, 0.1);
+  border-top: 1px solid rgba(232, 211, 169, 0.1);
+  gap: 15px;
+}
+
+.journal-save-btn {
+  background: rgba(60, 47, 79, 0.2);
+  border: 1px solid rgba(232, 211, 169, 0.3);
+  color: var(--dark-purple);
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.journal-save-btn:hover {
+  background: rgba(60, 47, 79, 0.3);
+  transform: translateY(-2px);
+}
+
+.journal-save-btn svg {
+  font-size: 1rem;
+}
+
+/* Keyboard Toggle Button */
+.keyboard-toggle-btn {
+  background: linear-gradient(145deg, #3C2F4F, #1B263B);
+  border: 1px solid rgba(232, 211, 169, 0.4);
+  border-radius: 20px;
+  color: #E8D3A9;
+  padding: 8px 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  font-family: 'Cinzel', serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
+}
+
+.keyboard-toggle-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(168, 199, 250, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.keyboard-toggle-btn:hover {
+  border-color: #A8C7FA;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(168, 199, 250, 0.3);
+}
+
+.keyboard-toggle-btn:hover::before {
+  left: 100%;
+}
+
+.keyboard-toggle-btn:active {
+  transform: translateY(0);
+}
+
+.keyboard-toggle-btn svg {
+  font-size: 1.1rem;
+}
+
+/* Gothic Keyboard Integration */
+.journal-gothic-keyboard {
+  width: 100%;
+}
+
+.journal-gothic-keyboard .gothic-textarea {
+  min-height: 200px;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  font-family: 'Caveat', cursive !important;
+  font-size: 1.2rem !important;
+  color: var(--dark-purple) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.journal-gothic-keyboard .gothic-textarea:focus {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.journal-gothic-keyboard .gothic-textarea::placeholder {
+  color: rgba(60, 47, 79, 0.5) !important;
+}
+
+.journal-gothic-keyboard .gothic-keyboard {
+  background: linear-gradient(145deg, 
+    rgba(60, 47, 79, 0.1), 
+    rgba(27, 38, 59, 0.05)
+  );
+  border: 1px solid rgba(232, 211, 169, 0.2);
+  border-radius: 15px;
+  padding: 15px;
+  margin-top: 15px;
+}
+
+.journal-gothic-keyboard .gothic-symbols-palette {
+  background: rgba(60, 47, 79, 0.1);
+  border: 1px solid rgba(232, 211, 169, 0.1);
+  margin-top: 8px;
+}
+
+.journal-gothic-keyboard .gothic-key {
+  background: linear-gradient(145deg, 
+    rgba(60, 47, 79, 0.3), 
+    rgba(27, 38, 59, 0.2)
+  );
+  border: 1px solid rgba(232, 211, 169, 0.2);
+  color: var(--dark-purple);
+}
+
+.journal-gothic-keyboard .gothic-key:hover {
+  border-color: rgba(168, 199, 250, 0.5);
+  color: var(--dark-purple);
+}
+
+.journal-gothic-keyboard .gothic-key:active,
+.journal-gothic-keyboard .gothic-key.active {
+  background: linear-gradient(145deg, 
+    rgba(232, 213, 183, 0.3), 
+    rgba(168, 199, 250, 0.2)
+  );
+  color: var(--dark-purple);
+}
+
+/* Mobile Responsiveness for Keyboard Toggle */
+@media (max-width: 600px) {
+  .journal-actions {
+    padding: 10px 15px;
+    gap: 10px;
+  }
+  
+  .keyboard-toggle-btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+  
+  .journal-gothic-keyboard .gothic-keyboard {
+    padding: 10px;
+  }
+}
+
+.journal-entries {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(27, 38, 59, 0.9);
+  z-index: 10;
+  overflow-y: auto;
+  padding: 20px;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+}
+
+.journal-entries.active {
+  transform: translateX(0);
+}
+
+.journal-entries-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.journal-entries-title {
+  font-family: 'Uncial Antiqua', serif;
+  color: var(--beige-parchment);
+  font-size: 1.5rem;
+}
+
+.journal-entries-close {
+  background: none;
+  border: none;
+  color: var(--beige-parchment);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.journal-entry-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.journal-entry {
+  background: rgba(232, 213, 183, 0.1);
+  border-radius: 10px;
+  padding: 15px;
+  border: 1px solid rgba(232, 211, 169, 0.2);
+}
+
+.journal-entry-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.journal-entry-meta {
+  color: rgba(232, 211, 169, 0.7);
+  font-family: 'Caveat', cursive;
+  font-size: 0.9rem;
+}
+
+.journal-entry-text {
+  font-family: 'Caveat', cursive;
+  color: var(--beige-parchment);
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+  .journal-container {
+    width: 95%;
+    max-height: 90vh;
+    border-radius: 15px;
+  }
+
+  .journal-input {
+    font-size: 1.1rem;
+  }
+
+  .journal-header {
+    padding: 10px 15px;
+  }
+
+  .journal-page {
+    padding: 15px;
+  }
+
+  .journal-actions {
+    padding: 10px 15px;
+  }
+}
+
+/* Фоновые частицы */
+.mystical-particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.5;
+  overflow: hidden;
+}
+
+.mystical-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(232, 211, 169, 0.3);
+  box-shadow: 0 0 10px rgba(232, 211, 169, 0.2);
+  will-change: transform, opacity;
+}
+
+/* Дополнительные меры */
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.journal-input {
+  -webkit-user-select: text;
+  user-select: text;
+}
