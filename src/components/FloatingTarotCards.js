@@ -1,9 +1,16 @@
 import React, { useEffect, useRef } from 'react';
+<<<<<<< HEAD
 import anime from 'animejs/lib/anime.js';
 import './FloatingTarotCards.css';
 
 // Lazy-load p5 to reduce initial bundle size
 let P5Constructor = null;
+=======
+// Lazy-load p5 to reduce initial bundle size
+let P5Constructor = null;
+import anime from 'animejs/lib/anime.js';
+import './FloatingTarotCards.css';
+>>>>>>> 03f74a820e1c48590eca44e10919f45b58bba4cf
 
 // Цветовая палитра из требований
 const COLOR_PALETTE = {

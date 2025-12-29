@@ -9,7 +9,11 @@ module.exports = {
     max_memory_restart: '1G',
     env: {
       NODE_ENV: 'production',
+<<<<<<< HEAD
       PORT: '10001'
+=======
+      PORT: '10004'
+>>>>>>> 03f74a820e1c48590eca44e10919f45b58bba4cf
     }
   }]
 };

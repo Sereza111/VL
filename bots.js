@@ -103,8 +103,13 @@ function initializeMainBot() {
           };
 
           mainBot.sendMessage(
+<<<<<<< HEAD
             chatId,
             'Если у вас возникли вопросы, нажмите кнопку ниже:',
+=======
+            chatId, 
+            'Если у вас возникли вопросы, нажмите кнопку ниже:', 
+>>>>>>> 03f74a820e1c48590eca44e10919f45b58bba4cf
             { reply_markup: supportKeyboard }
           );
         })
